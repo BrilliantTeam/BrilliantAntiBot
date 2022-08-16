@@ -1,19 +1,28 @@
 package engineer.skyouo.plugins.brilliantantibot
 
-import org.bukkit.plugin.java.JavaPlugin
+import engineer.skyouo.plugins.brilliantantibot.event.BungeeEventListener
+import engineer.skyouo.plugins.brilliantantibot.storage.PluginConfig
+import net.md_5.bungee.api.plugin.Plugin
 import java.util.logging.Logger
 
 @Suppress("unused")
-class BrilliantAntiBot : JavaPlugin() {
+class BrilliantAntiBot : Plugin() {
     companion object {
-        val LOGGER: Logger = Logger.getLogger("ExamplePlugin")
+        val LOGGER: Logger = Logger.getLogger("BrilliantAntiBot")
+        lateinit var INSTANCE: Plugin
     }
 
     override fun onEnable() {
-        LOGGER.info("ExamplePlugin is enabled")
+        INSTANCE = this
+        PluginConfig.init()
+        proxy.pluginManager.registerListener(this, BungeeEventListener())
+
+        LOGGER.info("BrilliantAntiBot is enabled")
     }
 
     override fun onDisable() {
-        LOGGER.info("ExamplePlugin is disabled")
+        PluginConfig.save()
+
+        LOGGER.info("BrilliantAntiBot is disabled")
     }
 }

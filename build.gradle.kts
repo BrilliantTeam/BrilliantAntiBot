@@ -32,7 +32,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-reflect:${project.property("kotlin_version")}")?.let { bundle(it) }
     // implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")?.let { bundle(it) }
 
-    compileOnly("org.spigotmc:spigot-api:${project.property("spigot_version").toString()}")
+    compileOnly("net.md-5:bungeecord-api:1.19-R0.1-SNAPSHOT")
 }
 
 val targetJavaVersion = 17
@@ -69,18 +69,29 @@ tasks {
     }
 
     task<LaunchMinecraftServerTask>("buildAndLaunchServer") {
-        dependsOn(build)
-        doFirst {
-            copy {
-                from(buildDir.resolve("libs/${project.property("plugin_name")}-$version.jar"))
-                into(buildDir.resolve("MinecraftServer/plugins"))
-            }
-        }
-
         // Spigot: https://getbukkit.org/download/spigot
         // Paper: https://github.com/sya-ri/minecraft-server-gradle-plugin
         jarUrl.set(LaunchMinecraftServerTask.JarUrl.Paper(project.property("mc_version").toString()))
         agreeEula.set(true)
+        // IDEA console input
+        jvmArgument.set(arrayListOf("-Deditable.java.test.console=true"))
+    }
+
+    task<LaunchMinecraftServerTask>("buildAndLaunchBungeecordServer") {
+        dependsOn(build)
+        serverDirectory.set(buildDir.resolve("BungeecordServer"))
+        doFirst {
+            copy {
+                from(buildDir.resolve("libs/${project.property("plugin_name")}-$version.jar"))
+                into(buildDir.resolve("BungeecordServer/plugins"))
+            }
+        }
+
+        // https://ci.md-5.net/job/BungeeCord/
+        jarUrl.set("https://ci.md-5.net/job/BungeeCord/lastSuccessfulBuild/artifact/bootstrap/target/BungeeCord.jar")
+        agreeEula.set(true)
+        // IDEA console input
+        jvmArgument.set(arrayListOf("-Deditable.java.test.console=true"))
     }
 
     task("reloadPluginJar") {
