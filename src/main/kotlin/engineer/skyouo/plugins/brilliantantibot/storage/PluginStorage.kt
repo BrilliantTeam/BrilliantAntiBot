@@ -10,14 +10,14 @@ object PluginStorage {
         return players[player.uniqueId.toString()]
     }
 
-    fun setPlayer(player: ProxiedPlayer, lastJoinAt: Date) {
+    fun setPlayer(player: ProxiedPlayer, lastDisconnectAt: Date) {
         val uuid = player.uniqueId.toString()
 
         val existing = getPlayer(player)
         if (existing != null) {
-            players[uuid] = existing.copy(lastJoinAt = lastJoinAt)
+            players[uuid] = existing.copy(lastJoinAt = lastDisconnectAt)
         } else {
-            players[uuid] = PlayerData(uuid, lastJoinAt)
+            players[uuid] = PlayerData(uuid, lastDisconnectAt)
         }
     }
 }
