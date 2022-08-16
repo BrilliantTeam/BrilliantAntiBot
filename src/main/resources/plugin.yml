@@ -1,7 +1,7 @@
-name: ExamplePlugin
+name: BrilliantAntiBot
 version: '${version}'
-main: com.example.exampleplugin.ExamplePlugin
+main: engineer.skyouo.plugins.brilliantantibot.BrilliantAntiBot
 api-version: 1.19
-authors: []
+authors: [ SiongSng ]
 description: 輝煌伺服器的生日插件
-website: example.com
+website: brilliantw.net
