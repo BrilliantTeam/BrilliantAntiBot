@@ -26,7 +26,7 @@ File location: `build/libs/...`
 ./gradle buildAndLaunchServer
 ```
 
-🟠 Precautions | 注意事項
+## 🟠 Precautions | 注意事項
 
 The plugin requires BungeeCord
 
