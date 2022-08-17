@@ -3,5 +3,5 @@ version: '${version}'
 main: engineer.skyouo.plugins.brilliantantibot.BrilliantAntiBot
 api-version: 1.19
 authors: [ SiongSng ]
-description: 輝煌伺服器的生日插件
+description: 輝煌伺服器用來防止玩家在短時間內大量登入的插件
 website: brilliantw.net
